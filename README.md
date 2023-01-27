@@ -1,8 +1,8 @@
-Welcome to Courseldr
+Welcome to Courseldry
 
 ---
 
-Courseldr is an app where university students can review courses they have completed/attended to give future students
+Courseldry is an app where university students can review courses they have completed/attended to give future students
 brief but analyzed look at what is waiting for them at the chosen course. All reviews are subjective so readers can agree
 or disagree with provided functionality for that and, of course, by commenting.
 
@@ -19,4 +19,4 @@ available information to their profile like age, university, degree title and mo
 
 ---
 
-Courseldr, 2023
+Courseldry, 2023
