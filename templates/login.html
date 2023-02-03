@@ -1,0 +1,42 @@
+<form id="loginForm" action="/login" method="POST">
+    <label for="username">Username: </label>
+    <input type="text" name="username"><br>
+    <label for="password">Password: </label>
+    <input style="margin-bottom: 10px" type="password" name="password"><br>
+    <input type="submit" value="Login">
+</form>
+
+<form id="signupForm" style="display:none" action="/signup" method="POST">
+    <label for="username">Username: </label>
+    <input type="text" name="username"><br>
+    <label for="password">Password: </label>
+    <input type="password" name="password1"><br>
+    <label for="password2">Re-enter password: </label>
+    <input style="margin-bottom: 10px" type="password" name="password2"><br>
+    <input type="submit" value="Sign up">
+</form>
+<button id="createAccountButton" type="button" style="margin-bottom: 10px" 
+    onclick="open_form()">
+    Create account
+</button><br>
+
+<script>
+    function open_form() {
+        var loginFormVisibility = document.getElementById('loginForm').style.display
+        var signupFormVisibility = document.getElementById('signupForm').style.display
+        if (loginFormVisibility !== "none") {
+            document.getElementById('loginForm').style.display="none"
+        } else {
+            document.getElementById('loginForm').style.display="block"
+            document.getElementById('createAccountButton').innerHTML = "Create account"
+        }
+        
+        if (signupFormVisibility === "none") {
+            document.getElementById('signupForm').style.display="block"
+            document.getElementById('createAccountButton').innerHTML = "Back to login"
+        } else {
+            document.getElementById('signupForm').style.display="none"
+        }
+        
+    }
+</script>
