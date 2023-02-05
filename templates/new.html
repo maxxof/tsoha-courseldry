@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{% block title %}New Review{% endblock %}
+{% block content %}
+<p>{{ session.username }} logged in</p>
+<a style="color:rgb(228, 185, 115)" href="/">Home</a>
+<a href="/logout">Log out</a>
+<hr>
+
+<h2>Post a course review</h2>
+
+<form class="review-form" action="/post" method="POST">
+    <label for="university">University: </label>
+    <input type="text" name="university" size="40"><br>
+    <label for="course">Course name: </label>
+    <input type="text" name="course" size="40"><br>
+    <label for="course-code">Course code (optional): </label>  
+    <input type="text" name="course-code" size="40"><br>
+    <label for="title">Give a title: </label>
+    <input type="text" name="title" size="50"><br>
+    <label for="content">Describe your experience briefly: </label><br>
+    <textarea name="content" rows="10" cols="60"></textarea><br>
+
+    <label for="difficulty">Difficulty (1 - easy, 5 - hard) </label><br>
+    <div class="rate" id="1">
+        <input type="radio" id="star5-difficulty" name="difficulty" value="5" />
+        <label for="star5-difficulty" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-difficulty" name="difficulty" value="4" />
+        <label for="star4-difficulty" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-difficulty" name="difficulty" value="3" />
+        <label for="star3-difficulty" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-difficulty" name="difficulty" value="2" />
+        <label for="star2-difficulty" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-difficulty" name="difficulty" value="1" />
+        <label for="star1-difficulty" title="1 star">1 star</label>
+    </div><br><br>
+
+    <label for="time-consumingness">Time consumingness (1 - not much, 5 - a lot)</label><br>
+    <div class="rate" id="2">
+        <input type="radio" id="star5-time" name="time" value="5" />
+        <label for="star5-time" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-time" name="time" value="4" />
+        <label for="star4-time" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-time" name="time" value="3" />
+        <label for="star3-time" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-time" name="time" value="2" />
+        <label for="star2-time" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-time" name="time" value="1" />
+        <label for="star1-time" title="1 star">1 star</label>
+    </div><br><br>
+
+    <label for="course-material">Course material (1 - poor, 5 - good)</label><br>
+    <div class="rate" id="3">
+        <input type="radio" id="star5-material" name="material" value="5" />
+        <label for="star5-material" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-material" name="material" value="4" />
+        <label for="star4-material" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-material" name="material" value="3" />
+        <label for="star3-material" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-material" name="material" value="2" />
+        <label for="star2-material" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-material" name="material" value="1" />
+        <label for="star1-material" title="1 star">1 star</label>
+    </div><br><br>
+
+    <label for="practicality">Practicality (1 - theoretical, 5 - practical)</label><br>
+    <div class="rate" id="4">
+        <input type="radio" id="star5-practicality" name="practicality" value="5" />
+        <label for="star5-practicality" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-practicality" name="practicality" value="4" />
+        <label for="star4-practicality" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-practicality" name="practicality" value="3" />
+        <label for="star3-practicality" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-practicality" name="practicality" value="2" />
+        <label for="star2-practicality" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-practicality" name="practicality" value="1" />
+        <label for="star1-practicality" title="1 star">1 star</label>
+    </div><br><br>
+
+    <label for="interestingness">Course interestingness (1 - not interesting, 5 - interesting) </label><br>
+    <div class="rate" id="5">
+        <input type="radio" id="star5-interestingness" name="interestingness" value="5" />
+        <label for="star5-interestingness" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-interestingness" name="interestingness" value="4" />
+        <label for="star4-interestingness" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-interestingness" name="interestingness" value="3" />
+        <label for="star3-interestingness" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-interestingness" name="interestingness" value="2" />
+        <label for="star2-interestingness" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-interestingness" name="interestingness" value="1" />
+        <label for="star1-interestingness" title="1 star">1 star</label>
+    </div><br><br>
+
+    <label for="credits">Practical credit amount (based on used hours)</label><br>
+    <select name="credits">
+        <option value="1"> 1 cr
+        <option value="2"> 2 cr
+        <option value="3"> 3 cr
+        <option value="4"> 4 cr
+        <option value="5"> 5 cr
+        <option value="6"> 6 cr
+        <option value="7"> 7 cr
+        <option value="8"> 8 cr
+        <option value="9"> 9 cr
+        <option value="10"> 10 cr
+    </select><br><hr>
+    <a href="#" class="button" onClick="this.parentNode.submit(); return false;">Submit</a>
+    <a href="/" class="button">Go back</a>
+</form>
+{% endblock %}

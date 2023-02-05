@@ -1,9 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
 <form id="loginForm" action="/login" method="POST">
     <label for="username">Username: </label>
     <input type="text" name="username"><br>
     <label for="password">Password: </label>
-    <input style="margin-bottom: 10px" type="password" name="password"><br>
-    <input type="submit" value="Login">
+    <input id="button" style="margin-bottom: 10px" type="password" name="password"><br>
+    <input class="login-button" style="margin-bottom: 10px" type="submit" value="Login">
 </form>
 
 <form id="signupForm" style="display:none" action="/signup" method="POST">
@@ -13,9 +16,9 @@
     <input type="password" name="password1"><br>
     <label for="password2">Re-enter password: </label>
     <input style="margin-bottom: 10px" type="password" name="password2"><br>
-    <input type="submit" value="Sign up">
+    <input  class="login-button" style="margin-bottom: 10px" type="submit" value="Sign up">
 </form>
-<button id="createAccountButton" type="button" style="margin-bottom: 10px" 
+<button class="login-button" id="createAccountButton" type="button" style="margin-bottom: 10px" 
     onclick="open_form()">
     Create account
 </button><br>
@@ -40,3 +43,4 @@
         
     }
 </script>
+{% endblock %}

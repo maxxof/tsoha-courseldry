@@ -7,6 +7,7 @@ def login(username, password):
     sql = "SELECT id, password FROM users WHERE username=:username"
     result = db.session.execute(text(sql), {"username":username})
     user = result.fetchone()
+    print(user)
     if not user:
         return False
     else:
@@ -18,13 +19,15 @@ def login(username, password):
             return False
 
 def logout():
-    del session["user_id"]
     try:
+        del session["user_id"]
         del session["username"]
     except:
         return
 
 def signup(username, password):
+    if not bool(username and not username.isspace()) or not bool(password and not password.isspace()):
+        return False
     hash_value = generate_password_hash(password)
     try: 
         sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
@@ -36,3 +39,6 @@ def signup(username, password):
 
 def user_id():
     return session.get("user_id", 0)
+
+def username():
+    return session.get("username")

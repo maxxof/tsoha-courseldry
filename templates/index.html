@@ -1,2 +1,107 @@
-<p>Logged in ({{ session.username }})</p>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<p>{{ session.username }} logged in</p>
 <a href="/logout">Log out</a>
+<hr>
+
+<a class="review-button" href="/new">Post a review</a><br>
+<hr>
+
+{% for post in posts %}
+<h2>{{post.course_name}}</h2>
+<h4>{{post.name}}</h4>
+<p>{{post.content}}</p>
+    <label for="difficulty">Difficulty</label><br>
+    <div class="static-stars" id="1" data-rating="{{ post.difficulty }}">
+        <input type="radio" id="star5-difficulty" name="difficulty{{post.id}}" value="5"/>
+        <label for="star5-difficulty" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-difficulty" name="difficulty{{post.id}}" value="4"/>
+        <label for="star4-difficulty" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-difficulty" name="difficulty{{post.id}}" value="3"/>
+        <label for="star3-difficulty" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-difficulty" name="difficulty{{post.id}}" value="2"/>
+        <label for="star2-difficulty" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-difficulty" name="difficulty{{post.id}}" value="1"/>
+        <label for="star1-difficulty" title="1 star">1 star</label>
+    </div><br><br><br>
+    
+
+    <label for="time-consumingness">Time consumingness</label><br>
+    <div class="static-stars" id="2" data-rating="{{ post.time_consumingness }}">
+        <input type="radio" id="star5-time" name="time{{post.id}}" value="1"/>
+        <label for="star5-time" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-time" name="time{{post.id}}" value="2"/>
+        <label for="star4-time" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-time" name="time{{post.id}}" value="3"/>
+        <label for="star3-time" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-time" name="time{{post.id}}" value="4"/>
+        <label for="star2-time" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-time" name="time{{post.id}}" value="5"/>
+        <label for="star1-time" title="1 star">1 star</label>
+    </div><br><br><br>
+
+    <label for="course-material">Course material</label><br>
+    <div class="static-stars" id="3" data-rating="{{ post.material }}">
+        <input type="radio" id="star5-material" name="material{{post.id}}" value="5"/>
+        <label for="star5-material" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-material" name="material{{post.id}}" value="4"/>
+        <label for="star4-material" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-material" name="material{{post.id}}" value="3"/>
+        <label for="star3-material" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-material" name="material{{post.id}}" value="2"/>
+        <label for="star2-material" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-material" name="material{{post.id}}" value="1"/>
+        <label for="star1-material" title="1 star">1 star</label>
+    </div><br><br><br>
+
+    <label for="practicality">Practicality</label><br>
+    <div class="static-stars" id="4" data-rating="{{ post.practicality }}">
+        <input type="radio" id="star5-practicality" name="practicality{{post.id}}" value="5"/>
+        <label for="star5-practicality" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-practicality" name="practicality{{post.id}}" value="4"/>
+        <label for="star4-practicality" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-practicality" name="practicality{{post.id}}" value="3"/>
+        <label for="star3-practicality" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-practicality" name="practicality{{post.id}}" value="2"/>
+        <label for="star2-practicality" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-practicality" name="practicality{{post.id}}" value="1"/>
+        <label for="star1-practicality" title="1 star">1 star</label>
+    </div><br><br><br>
+
+    <label for="interestingness">Course interestingness</label><br>
+    <div class="static-stars" id="5" data-rating="{{ post.interestingness }}">
+        <input type="radio" id="star5-interestingness" name="interestingness{{post.id}}" value="5"/>
+        <label for="star5-interestingness" title="5 stars">5 stars</label>
+        <input type="radio" id="star4-interestingness" name="interestingness{{post.id}}" value="4"/>
+        <label for="star4-interestingness" title="4 stars">4 stars</label>
+        <input type="radio" id="star3-interestingness" name="interestingness{{post.id}}" value="3"/>
+        <label for="star3-interestingness" title="3 stars">3 stars</label>
+        <input type="radio" id="star2-interestingness" name="interestingness{{post.id}}" value="2"/>
+        <label for="star2-interestingness" title="2 stars">2 stars</label>
+        <input type="radio" id="star1-interestingness" name="interestingness{{post.id}}" value="1" />
+        <label for="star1-interestingness" title="1 star">1 star</label>
+    </div><br><br>
+    <p>Practical credits: {{post.credits}}</p>
+
+
+<p>{{post.username}}, {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
+<hr>
+{% endfor %}
+<script>
+  const starRatings = document.querySelectorAll('.static-stars');
+  starRatings.forEach(rating => {
+  const stars = rating.querySelectorAll('input[type="radio"]');
+  var ratingValue = parseInt(rating.getAttribute('data-rating'));
+  ratingValue = 6-ratingValue
+  console.log(stars)
+  stars.forEach((star, index) => {
+    if (index < ratingValue) {
+      star.checked = true;
+      
+    }
+    star.disabled = true;
+  });
+});
+</script>
+{% endblock %}

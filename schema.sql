@@ -4,13 +4,17 @@ CREATE TABLE users (
     password TEXT
 );
 
+CREATE TABLE universities (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+);
+
 CREATE TABLE courses (
     id SERIAL PRIMARY KEY,
     course_name TEXT,
-    course_code TEXT UNIQUE,
-    university TEXT UNIQUE,
-    department TEXT,
-    credits INTEGER
+    course_code TEXT,
+    university_id INTEGER REFERENCES universities,
+    official_credits INTEGER
 );
 
 CREATE TABLE reviews (
@@ -22,9 +26,9 @@ CREATE TABLE reviews (
     content TEXT,
     difficulty TEXT,
     time_consumingness TEXT,
-    course_material TEXT,
-    practical_credit_amount TEXT,
-    usefulness TEXT,
+    material TEXT,
+    credits TEXT,
+    practicality TEXT,
     interestingness TEXT
 );
 
@@ -35,7 +39,7 @@ CREATE TABLE profiles (
     university TEXT,
     degree_title TEXT,
     university_credits INTEGER,
-    review_amount INTEGER,
+    reviews INTEGER,
     reliability_percentage TEXT
 );
 
@@ -46,15 +50,14 @@ CREATE TABLE review_stats (
     disagreements INTEGER
 );
 
-
 CREATE TABLE course_stats (
     id SERIAL PRIMARY KEY,
     course_id INTEGER REFERENCES courses,
     likes INTEGER,
     difficulty TEXT,
     time_consumingness TEXT,
-    course_material TEXT,
-    practical_credit_amount TEXT,
+    material TEXT,
+    credits TEXT,
     usefulness TEXT,
     interestingness TEXT
 )

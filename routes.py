@@ -1,12 +1,15 @@
 from app import app
-from flask import render_template, request, redirect, session
-import users
+from flask import render_template, request, redirect
+import users, reviews
+from testcase import data1, data2, data3
 
 @app.route("/")
 def index():
     if users.user_id() == 0:
         return redirect("/login")
-    return render_template("index.html")
+
+    posts = reviews.get_reviews()[::-1]
+    return render_template("index.html", posts=posts)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -28,13 +31,44 @@ def signup():
 
     if password1 != password2:
         return render_template("error.html", message="Passwords don't match")
+
     if users.signup(username, password2):
+        # Following code is made for a test case
+        ###
+        reviews.post_review(data1)
+        reviews.post_review(data2)
+        reviews.post_review(data3)
+        ###
+
         return redirect("/")
-    if not bool(username and not username.isspace()):
-        return render_template("error.html", message="username cannot be empty")
-    return render_template("error.html", message=f"username {username} is already taken")
+    else:
+        return render_template("error.html", message="choose a valid username and password")
 
 @app.route("/logout")
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/new")
+def new_review():
+    if users.user_id() == 0:
+        return redirect("/login")
+    return render_template("new.html")
+
+@app.route("/post", methods=["POST"])
+def post():
+    if users.user_id() == 0:
+        return redirect("/login")
+    data = {}
+    for key in request.form:
+        data[key] = request.form[key]
+        if key == "course-code":
+            continue
+        if not check_input(request.form[key]):
+            return render_template("error.html", message="Fill the form")
+
+    reviews.post_review(data)
+    return redirect("/")
+
+def check_input(input):
+    return bool(input and not input.isspace())
