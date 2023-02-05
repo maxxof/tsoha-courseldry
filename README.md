@@ -2,20 +2,54 @@ Welcome to Courseldry
 
 ---
 
-Courseldry is an app where university students can review courses they have completed/attended to give future students
-brief but analyzed look at what is waiting for them at the chosen course. All reviews are subjective so readers can agree
-or disagree with provided functionality for that and, of course, by commenting.
+Courseldry is an app where university students can review courses they have completed/attended to.
+For now functionality and styling of the application is a little vacant but here's
+the functions you can do as of now:
 
-Besides general text description the key components that will further promote informativiness of the review are:
-- star/scale evaluation of course difficulty, time consumingness and more
-- courses's dependence on external sources (material)
-- course's practical credit amount compared to officially declared amount in the curriculum based on time consumingness and used hours
-- & more
+- Make an account and login, and of course, logout
+- Read all the reviews that are stored in database
+- Post a review
 
-If course review's disagreements highly outweigh agreements the review will be deleted, automatically.
+It is early stage of the application so visual appearance of the application wasn't
+priority and more functionalities, like engagement with posts and unique user profiles
+are yet to come.
 
-Users have to be signed in order to interact with reviews or to create them. Users also have unique profiles, where user can add publicly
-available information to their profile like age, university, degree title and more.
+---
+
+Here's instructions on how to start the applicaton on your machine:
+
+Clone this repository to your computer and move to the root directory of the application.
+Create an `.env` file and paste following code there (NB: For some reason default port 
+and/or host doesn't work properly on my machine so to avoid any complications I recommend
+using these settings)
+
+```
+DATABASE_URL=<your-local-url>
+SECRET_KEY=<some-random-numbers>
+FLASK_RUN_HOST=0.0.0.0
+FLASK_RUN_PORT=8000
+```
+P.S Local url (postgre) is usually either `postgresql:///<database-name>` or `postgresql+psycopg2://`.
+
+Then you create virtual environment and download app dependencies with commands
+
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r ./requirements.txt
+```
+
+Then define schema of your database
+
+```
+$ psql < schema.sql
+```
+
+Now you are ready to run the app:
+
+```
+$ flask run
+```
 
 ---
 
