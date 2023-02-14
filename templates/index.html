@@ -4,10 +4,19 @@
 <p>{{ session.username }} logged in</p>
 <a href="/logout">Log out</a>
 <hr>
+<a class="button" href="/new">Post a review</a>
 
-<a class="review-button" href="/new">Post a review</a><br>
+<form style="display: inline;" method="POST" action="/">
+  <input id="filter" style="margin-left: 5em;"type="text" name="course_filter"placeholder="Search for courses">
+  <input class="button" style="margin-bottom: 10px" type="submit" value="Search">
+  <button class="button" onclick="document.getElementById('filter').value = ''">Show all</button>
+  
+</form>
+
 <hr>
-
+{% if posts |length ==0 %}
+<p>No reviews</p>
+{% endif %}
 {% for post in posts %}
 <h2>{{post.course_name}}</h2>
 <h4>{{post.name}}</h4>
@@ -85,7 +94,9 @@
     <p>Practical credits: {{post.credits}}</p>
 
 
-<p>{{post.username}}, {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
+<p style="display: inline;">Posted by &nbsp<a href="/profile">{{post.username}}</a>at {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
+<button class="button" style="display: inline; margin-left: 2em;">Like</button>
+<button class="button" style="display: inline; margin-left: .5em;">Dislike</button>
 <hr>
 {% endfor %}
 <script>
@@ -94,7 +105,6 @@
   const stars = rating.querySelectorAll('input[type="radio"]');
   var ratingValue = parseInt(rating.getAttribute('data-rating'));
   ratingValue = 6-ratingValue
-  console.log(stars)
   stars.forEach((star, index) => {
     if (index < ratingValue) {
       star.checked = true;
@@ -102,6 +112,9 @@
     }
     star.disabled = true;
   });
-});
+  });
+
 </script>
+
 {% endblock %}
+

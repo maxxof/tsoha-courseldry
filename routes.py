@@ -3,12 +3,21 @@ from flask import render_template, request, redirect
 import users, reviews
 from testcase import data1, data2, data3
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
     if users.user_id() == 0:
         return redirect("/login")
 
     posts = reviews.get_reviews()[::-1]
+    if request.method == "POST":
+        course_filter = request.form["course_filter"]
+        filtered = []
+        for i in range(len(posts)):
+            review = posts[i]
+            if course_filter.lower() in review[3].lower():
+                filtered.append(review)
+        posts = filtered
+
     return render_template("index.html", posts=posts)
 
 @app.route("/login", methods=["GET", "POST"])
