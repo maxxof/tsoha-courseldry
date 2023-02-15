@@ -50,6 +50,14 @@ CREATE TABLE review_stats (
     disagreements INTEGER
 );
 
+CREATE TABLE user_review_engagement(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    review_id INTEGER REFERENCES reviews,
+    agreed BOOLEAN DEFAULT FALSE,
+    disagreed BOOLEAN DEFAULT FALSE
+);
+
 CREATE TABLE course_stats (
     id SERIAL PRIMARY KEY,
     course_id INTEGER REFERENCES courses,

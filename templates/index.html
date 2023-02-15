@@ -7,10 +7,9 @@
 <a class="button" href="/new">Post a review</a>
 
 <form style="display: inline;" method="POST" action="/">
-  <input id="filter" style="margin-left: 5em;"type="text" name="course_filter"placeholder="Search for courses">
+  <input id="filter" style="margin-left: 5em;"type="text" name="course_filter" placeholder="Search for courses">
   <input class="button" style="margin-bottom: 10px" type="submit" value="Search">
   <button class="button" onclick="document.getElementById('filter').value = ''">Show all</button>
-  
 </form>
 
 <hr>
@@ -95,10 +94,33 @@
 
 
 <p style="display: inline;">Posted by &nbsp<a href="/profile">{{post.username}}</a>at {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
-<button class="button" style="display: inline; margin-left: 2em;">Like</button>
-<button class="button" style="display: inline; margin-left: .5em;">Dislike</button>
+
+{% if post.id not in user_agreements %}
+<form style="display: inline;" method="POST" action="/agree">
+  <input type="hidden" name="agree" value="{{post.id}}">
+  <input class="button" style="display: inline; margin-left: 2em;" type="submit" value="Agree" ><p style="display: inline; color: rgb(5, 151, 0);">{{post.agreements}}</p>
+</form>
+{% else %}
+<form style="display: inline;" method="POST" action="/unagree">
+  <input type="hidden" name="unagree" value="{{post.id}}">
+  <input class="button" style="display: inline; margin-left: 2em;" type="submit" value="Un-agree"><p style="display: inline; color: rgb(5, 151, 0);">{{post.agreements}}</p>
+</form>
+{% endif %}
+{% if post.id not in user_disagreements %}
+<form style="display: inline;" method="POST" action="/disagree">
+  <input type="hidden" name="disagree" value="{{post.id}}">
+  <input class="button" style="display: inline; margin-left: 2em;" type="submit" value="Disagree"><p style="display: inline; color: rgb(174, 6, 6);">{{post.disagreements}}</p>
+</form>
+{% else %}
+<form style="display: inline;" method="POST" action="/undisagree">
+  <input type="hidden" name="undisagree" value="{{post.id}}">
+  <input class="button" style="display: inline; margin-left: 2em;" type="submit" value="Un-disagree"><p style="display: inline; color: rgb(174, 6, 6);">{{post.disagreements}}</p>
+</form>
+{% endif %}
 <hr>
+
 {% endfor %}
+
 <script>
   const starRatings = document.querySelectorAll('.static-stars');
   starRatings.forEach(rating => {

@@ -5,10 +5,17 @@ from testcase import data1, data2, data3
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if users.user_id() == 0:
+    user_id = users.user_id()
+    if user_id == 0:
         return redirect("/login")
 
-    posts = reviews.get_reviews()[::-1]
+    posts = reviews.get_reviews()
+    user_agreements = reviews.get_user_agreements(user_id)
+    user_disagreements = reviews.get_user_disagreements(user_id)
+
+    agreements = [i.review_id for i in user_agreements]
+    disagreements = [j.review_id for j in user_disagreements]
+
     if request.method == "POST":
         course_filter = request.form["course_filter"]
         filtered = []
@@ -16,9 +23,9 @@ def index():
             review = posts[i]
             if course_filter.lower() in review[3].lower():
                 filtered.append(review)
-        posts = filtered
+        posts = filtered[:]
 
-    return render_template("index.html", posts=posts)
+    return render_template("index.html", posts=posts,user_agreements=agreements, user_disagreements=disagreements)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -78,6 +85,42 @@ def post():
 
     reviews.post_review(data)
     return redirect("/")
+
+@app.route("/agree", methods=["POST"])
+def agree():
+    user_id = users.user_id()
+    if user_id == 0:
+        return redirect("/login")
+    review_id = request.form["agree"]
+    reviews.agree(review_id, user_id)
+    return redirect(request.referrer)
+
+@app.route("/disagree", methods=["POST"])
+def disagree():
+    user_id = users.user_id()
+    if user_id == 0:
+        return redirect("/login")
+    review_id = request.form["disagree"]
+    reviews.disagree(review_id, user_id)
+    return redirect(request.referrer)
+
+@app.route("/unagree", methods=["POST"])
+def unagree():
+    user_id = users.user_id()
+    if user_id == 0:
+        return redirect("/login")
+    review_id = request.form["unagree"]
+    reviews.unagree(review_id, user_id)
+    return redirect(request.referrer)
+
+@app.route("/undisagree", methods=["POST"])
+def undisagree():
+    user_id = users.user_id()
+    if user_id == 0:
+        return redirect("/login")
+    review_id = request.form["undisagree"]
+    reviews.undisagree(review_id, user_id)
+    return redirect(request.referrer)
 
 def check_input(input):
     return bool(input and not input.isspace())
