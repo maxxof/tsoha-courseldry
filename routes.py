@@ -67,14 +67,18 @@ def logout():
 
 @app.route("/new")
 def new_review():
-    if users.user_id() == 0:
+    user_id = users.user_id()
+    if user_id == 0:
         return redirect("/login")
+    
     return render_template("new.html")
 
 @app.route("/post", methods=["POST"])
 def post():
-    if users.user_id() == 0:
+    user_id = users.user_id()
+    if user_id == 0:
         return redirect("/login")
+
     data = {}
     for key in request.form:
         data[key] = request.form[key]
@@ -91,6 +95,7 @@ def agree():
     user_id = users.user_id()
     if user_id == 0:
         return redirect("/login")
+    
     review_id = request.form["agree"]
     reviews.agree(review_id, user_id)
     return redirect(request.referrer)
@@ -100,6 +105,7 @@ def disagree():
     user_id = users.user_id()
     if user_id == 0:
         return redirect("/login")
+
     review_id = request.form["disagree"]
     reviews.disagree(review_id, user_id)
     return redirect(request.referrer)
@@ -109,6 +115,7 @@ def unagree():
     user_id = users.user_id()
     if user_id == 0:
         return redirect("/login")
+    
     review_id = request.form["unagree"]
     reviews.unagree(review_id, user_id)
     return redirect(request.referrer)
@@ -118,6 +125,7 @@ def undisagree():
     user_id = users.user_id()
     if user_id == 0:
         return redirect("/login")
+    
     review_id = request.form["undisagree"]
     reviews.undisagree(review_id, user_id)
     return redirect(request.referrer)

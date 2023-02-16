@@ -97,8 +97,9 @@
 
 {% if post.id not in user_agreements %}
 <form style="display: inline;" method="POST" action="/agree">
+  <input type="hidden" name="scrollPosition" id="scrollPosition" value="">
   <input type="hidden" name="agree" value="{{post.id}}">
-  <input class="button" style="display: inline; margin-left: 2em;" type="submit" value="Agree" ><p style="display: inline; color: rgb(5, 151, 0);">{{post.agreements}}</p>
+  <input class="button" style="display: inline; margin-left: 2em;" type="submit" value="Agree"><p style="display: inline; color: rgb(5, 151, 0);">{{post.agreements}}</p>
 </form>
 {% else %}
 <form style="display: inline;" method="POST" action="/unagree">
@@ -136,6 +137,19 @@
   });
   });
 
+  window.addEventListener('scroll', function() {
+    var scrollPosition = window.pageYOffset;
+    sessionStorage.setItem('scrollPosition', scrollPosition);
+  });
+
+  window.onload = function() {
+  var scrollPosition = sessionStorage.getItem('scrollPosition')
+  window.scrollTo({
+  top: scrollPosition,
+  left: 0,
+  behavior: 'smooth'
+  });
+  };
 </script>
 
 {% endblock %}
