@@ -37,7 +37,7 @@ def login():
         
         if users.login(username, password):
             return redirect("/")
-        return render_template("error.html", message="Wrong username or password")
+        return render_template("login.html", error="Wrong username or password")
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -46,19 +46,19 @@ def signup():
     password2 = request.form["password2"]
 
     if password1 != password2:
-        return render_template("error.html", message="Passwords don't match")
+        return render_template("login.html", error="Passwords don't match", signup="true")
 
     if users.signup(username, password2):
-        # Following code is made for a test case
-        ###
-        reviews.post_review(data1)
-        reviews.post_review(data2)
-        reviews.post_review(data3)
-        ###
+        # # Following code is made for a test case
+        # ###
+        # reviews.post_review(data1)
+        # reviews.post_review(data2)
+        # reviews.post_review(data3)
+        # ###
 
         return redirect("/")
     else:
-        return render_template("error.html", message="choose a valid username and password")
+        return render_template("login.html", error="Username or password can't be empty", signup="true")
 
 @app.route("/logout")
 def logout():
@@ -85,7 +85,7 @@ def post():
         if key == "course-code":
             continue
         if not check_input(request.form[key]):
-            return render_template("error.html", message="Fill the form")
+            return render_template("error.html", message="Fill required fields")
 
     reviews.post_review(data)
     return redirect("/")

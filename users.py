@@ -28,6 +28,8 @@ def logout():
 def signup(username, password):
     if not bool(username and not username.isspace()) or not bool(password and not password.isspace()):
         return False
+    if len(username) < 3 or len(password) < 3:
+        return False
     hash_value = generate_password_hash(password)
     try: 
         sql = "INSERT INTO users (username, password) VALUES (:username, :password)"

@@ -8,7 +8,7 @@
 
 <h2 style="text-align: center;">Post a course review</h2>
 
-<form class="review-form" action="/post" method="POST">
+<form class="review-form" action="/post" method="POST" onsubmit="return check(this)">
     <label for="university">University: </label>
     <input type="text" name="university" size="40"><br>
     <label for="course">Course name: </label>
@@ -106,4 +106,5 @@
     <a href="#" class="button" onClick="this.parentNode.submit(); return false;">Submit</a>
     <a href="/" class="button">Go back</a>
 </form>
+
 {% endblock %}
