@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Course stats{% endblock %}
+{% block content %}
+
+<style type="text/css">
+    td {
+      padding: 0 40px;
+    }
+  </style>
+
+<a href="/logout">Log out</a>
+<a style="color:rgb(219, 140, 13)" href="/">Home</a>
+<hr>
+
+<h2 style="text-align: center;">{{course}}</h2>
+<h3 style="text-align: center;">{{university}}</h3>
+<p style="text-align: center;">Course stats (average)</p>
+<table>
+<tr>
+    <th>Difficulty&nbsp;</th>
+    <th>Time consumingness&nbsp;</th>
+    <th>Material&nbsp;</th>
+    <th>Practicality&nbsp;</th>
+    <th>Interestingness&nbsp;</th>
+    <th>Credits</th>
+</tr>
+<tr style="text-align: center;">
+    <td>{{difficulty}}</td>
+    <td>{{time_consumingness}}</td>
+    <td>{{material}}</td>
+    <td>{{practicality}}</td>
+    <td>{{interestingness}}</td>
+    <td>{{credits}}</td>
+</tr>
+</table>
+{% endblock %}

@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 import users, reviews
-from testcase import data1, data2, data3
+from testcase import data1, data2, data3, data4, data5
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -50,11 +50,13 @@ def signup():
 
     if users.signup(username, password2):
         # # Following code is made for a test case
-        # ###
-        # reviews.post_review(data1)
-        # reviews.post_review(data2)
-        # reviews.post_review(data3)
-        # ###
+        ###
+        reviews.post_review(data1)
+        reviews.post_review(data2)
+        reviews.post_review(data3)
+        reviews.post_review(data4)
+        reviews.post_review(data5)
+        ###
 
         return redirect("/")
     else:
@@ -78,7 +80,9 @@ def post():
     user_id = users.user_id()
     if user_id == 0:
         return redirect("/login")
-
+    
+    if len(request.form) != 11:
+        return render_template("error.html", message="Fill required fields")
     data = {}
     for key in request.form:
         data[key] = request.form[key]
@@ -86,7 +90,6 @@ def post():
             continue
         if not check_input(request.form[key]):
             return render_template("error.html", message="Fill required fields")
-
     reviews.post_review(data)
     return redirect("/")
 
@@ -129,6 +132,25 @@ def undisagree():
     review_id = request.form["undisagree"]
     reviews.undisagree(review_id, user_id)
     return redirect(request.referrer)
+
+@app.route("/course/<int:id>")
+def course(id):
+    stats = reviews.get_course_stats(id)
+    difficulty = stats[0]
+    time_consumingness = stats[1]
+    material = stats[2]
+    credits = stats[3]
+    practicality = stats[4]
+    interestingness = stats[5]
+
+    info = reviews.get_course_info(id)
+    return render_template("course.html", course=info[0], code=info[1], university=info[2], difficulty=difficulty, 
+                           time_consumingness=time_consumingness, material=material, credits=credits, 
+                           practicality=practicality, interestingness=interestingness)
+
+@app.route("/profile/<username>")
+def profile(username):
+    return render_template("profile.html", username=username)
 
 def check_input(input):
     return bool(input and not input.isspace())

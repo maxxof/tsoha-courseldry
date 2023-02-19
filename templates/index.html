@@ -17,9 +17,9 @@
 <p>No reviews</p>
 {% endif %}
 {% for post in posts %}
-<h2>{{post.course_name}}</h2>
-<h4>{{post.name}}</h4>
-<p>{{post.content}}</p>
+<a class="course-title" href="/course/{{ post.course_id }}"><b>{{post.course_name}}</b></a>
+<h3>{{post.name}}</h3>
+<p style="font-size: larger;">{{post.content}}</p>
     <label for="difficulty">Difficulty</label><br>
     <div class="static-stars" id="1" data-rating="{{ post.difficulty }}">
         <input type="radio" id="star5-difficulty" name="difficulty{{post.id}}" value="5"/>
@@ -90,10 +90,10 @@
         <input type="radio" id="star1-interestingness" name="interestingness{{post.id}}" value="1" />
         <label for="star1-interestingness" title="1 star">1 star</label>
     </div><br><br>
-    <p>Practical credits: {{post.credits}}</p>
+    <p style="font-size: larger;">Practical credits: {{post.credits}}</p>
 
 
-<p style="display: inline;">Posted by &nbsp<a href="/profile">{{post.username}}</a>at {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
+<p style="display: inline;">Posted by &nbsp<a href="/profile/{{ post.username }}">{{post.username}}</a>at {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
 
 {% if post.id not in user_agreements %}
 <form style="display: inline;" method="POST" action="/agree">

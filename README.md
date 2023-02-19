@@ -3,16 +3,16 @@ Welcome to Courseldry
 ---
 
 Courseldry is an app where university students can review courses they have completed/attended to.
-For now functionality and styling of the application is a little vacant but here's
-the functions you can do as of now:
+Here's the functions you can do as of now:
 
-- Make an account and login, and of course, logout
+- Make an account, login, logout
 - Read all the reviews that are stored in database
+- Engage with reviews (agree/disagree)
 - Post a review
+- Filter reviews by course name
+- See each individual course's stats based on reviews
 
-It is early stage of the application so visual appearance of the application wasn't
-priority and more functionalities, like engagement with posts and unique user profiles
-are yet to come.
+User profiles are yet to come and visual appearance of the application is not final.
 
 ---
 

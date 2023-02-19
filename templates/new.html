@@ -3,12 +3,12 @@
 {% block content %}
 <p>{{ session.username }} logged in</p>
 <a href="/logout">Log out</a>
-<a style="color:rgb(228, 185, 115)" href="/">Home</a>
+<a style="color:rgb(219, 140, 13)" href="/">Home</a>
 <hr>
 
 <h2 style="text-align: center;">Post a course review</h2>
 
-<form class="review-form" action="/post" method="POST" onsubmit="return check(this)">
+<form class="review-form" action="/post" method="POST">
     <label for="university">University: </label>
     <input type="text" name="university" size="40"><br>
     <label for="course">Course name: </label>
