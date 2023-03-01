@@ -103,6 +103,7 @@
         <option value="9"> 9 cr
         <option value="10"> 10 cr
     </select><br><hr>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" >
     <a href="#" class="button" onClick="this.parentNode.submit(); return false;">Submit</a>
     <a href="/" class="button">Go back</a>
 </form>

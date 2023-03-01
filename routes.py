@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import abort, render_template, request, redirect, session
 import users, reviews
 from testcase import data1, data2, data3, data4, data5
 
@@ -81,7 +81,10 @@ def post():
     if user_id == 0:
         return redirect("/login")
     
-    if len(request.form) != 11:
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    
+    if len(request.form) != 12:
         return render_template("error.html", message="Fill required fields")
     data = {}
     for key in request.form:
