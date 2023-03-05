@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<p>This is {{ username }}'s profile</p>
+<a href="/logout">Log out</a>
+<a style="color:rgb(219, 140, 13)" href="/">Home</a>
+<hr>
+<h1>{{ username }}'s profile</h1>
+<p>Total reviews: {{ review_count }}</p>
 {% endblock %}

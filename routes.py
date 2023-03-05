@@ -138,6 +138,9 @@ def undisagree():
 
 @app.route("/course/<int:id>")
 def course(id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return redirect("/login")
     stats = reviews.get_course_stats(id)
     difficulty = stats[0]
     time_consumingness = stats[1]
@@ -151,9 +154,14 @@ def course(id):
                            time_consumingness=time_consumingness, material=material, credits=credits, 
                            practicality=practicality, interestingness=interestingness)
 
-@app.route("/profile/<username>")
-def profile(username):
-    return render_template("profile.html", username=username)
+@app.route("/profile/<int:id>")
+def profile(id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return redirect("/login")
+    user_reviews = reviews.get_user_reviews(id)
+    username = reviews.get_username(id)[0]
+    return render_template("profile.html", username=username, review_count=len(user_reviews))
 
 def check_input(input):
     return bool(input and not input.isspace())

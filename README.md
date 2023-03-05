@@ -2,17 +2,16 @@ Welcome to Courseldry
 
 ---
 
-Courseldry is an app where university students can review courses they have completed/attended to.
-Here's the functions you can do as of now:
+Courseldry is an app where university students can create reviews of the courses they have completed/attended to.
+Here's what you can do in a final version of the app:
 
 - Make an account, login, logout
-- Read all the reviews that are stored in database
+- Read all the reviews that are stored in a database
 - Engage with reviews (agree/disagree)
 - Post a review
 - Filter reviews by course name
-- See each individual course's stats based on reviews
-
-User profiles are yet to come and visual appearance of the application is not final.
+- See each course's stats based on reviews
+- Check user profile
 
 ---
 

@@ -7,6 +7,7 @@
 table td + td { border-left:2px solid rgb(218, 144, 53); }
 
 .button {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: inline-block;
     padding: .7em 1em .7em;
     background: rgb(228, 185, 115);
@@ -15,6 +16,9 @@ table td + td { border-left:2px solid rgb(218, 144, 53); }
     margin: .2em;
     text-decoration: none;
     
+}
+.button:hover {
+    background-color: rgb(218, 144, 53);
 }
 
 a {

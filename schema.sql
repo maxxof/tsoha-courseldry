@@ -32,17 +32,6 @@ CREATE TABLE reviews (
     interestingness TEXT
 );
 
-CREATE TABLE profiles (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
-    age INTEGER,
-    university TEXT,
-    degree_title TEXT,
-    university_credits INTEGER,
-    reviews INTEGER,
-    reliability_percentage TEXT
-);
-
 CREATE TABLE review_stats (
     id SERIAL PRIMARY KEY,
     review_id INTEGER REFERENCES reviews,
@@ -57,15 +46,3 @@ CREATE TABLE user_review_engagement(
     agreed BOOLEAN DEFAULT FALSE,
     disagreed BOOLEAN DEFAULT FALSE
 );
-
-CREATE TABLE course_stats (
-    id SERIAL PRIMARY KEY,
-    course_id INTEGER REFERENCES courses,
-    likes INTEGER,
-    difficulty TEXT,
-    time_consumingness TEXT,
-    material TEXT,
-    credits TEXT,
-    usefulness TEXT,
-    interestingness TEXT
-)

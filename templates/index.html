@@ -93,8 +93,7 @@
     <p style="font-size: larger;">Practical credits: {{post.credits}}</p>
 
 
-<p style="display: inline;">Posted by &nbsp<a href="/profile/{{ post.username }}">{{post.username}}</a>at {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
-
+<p style="display: inline;">Posted by &nbsp<a href="/profile/{{ post.user_id }}">{{post.username}}</a>at {{post.published_at.strftime("%d.%m.%Y %H:%M")}}</p>
 {% if post.id not in user_agreements %}
 <form style="display: inline;" method="POST" action="/agree">
   <input type="hidden" name="scrollPosition" id="scrollPosition" value="">

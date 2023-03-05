@@ -68,7 +68,7 @@ def add_course(university_id, course, course_code):
 def get_reviews():
     sql = "SELECT r.id, users.username, universities.name, courses.course_name, " \
             "r.published_at, r.title, r.content, r.difficulty, r.time_consumingness, " \
-            "r.material, r.credits, r.practicality, r.interestingness, rs.id, rs.agreements, rs.disagreements, r.course_id FROM reviews r, " \
+            "r.material, r.credits, r.practicality, r.interestingness, rs.id, rs.agreements, rs.disagreements, r.course_id, r.user_id FROM reviews r, " \
             "courses, universities, review_stats rs, users WHERE users.id = r.user_id AND " \
             "courses.id = r.course_id AND universities.id = courses.university_id AND rs.review_id = r.id ORDER BY r.published_at DESC"
     return db.session.execute(text(sql)).fetchall()
@@ -147,4 +147,14 @@ def get_course_info(course_id):
     sql = "SELECT courses.course_name, courses.course_code, universities.name FROM courses LEFT JOIN universities " \
             "ON courses.university_id = universities.id WHERE courses.id = :course_id"
     result = db.session.execute(text(sql), {"course_id":course_id}).fetchone()
+    return result
+
+def get_user_reviews(user_id):
+    sql = "SELECT * FROM reviews WHERE user_id = :user_id"
+    result = db.session.execute(text(sql), {"user_id":user_id}).fetchall()
+    return result
+
+def get_username(user_id):
+    sql = "SELECT username FROM users WHERE id = :user_id"
+    result = db.session.execute(text(sql), {"user_id":user_id}).fetchone()
     return result
